@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W-Lotto 결과값 사이트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 900px; /* 더 넓게 설정 */
+            width: 100%;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+        th {
+            background-color: #e2e8f0;
+            font-weight: 600;
+            color: #1a202c;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .button-style {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        .button-primary {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+        .button-primary:hover {
+            background-color: #2563eb;
+            box-shadow: 0 6px 8px rgba(59, 130, 246, 0.4);
+        }
+        .message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .message.error {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">W-Lotto Powerball - ETH 조회</h1>
+        <p class="text-gray-600 mb-6">아래 표에서 W-Lotto의 Powerball 데이터를 확인하세요.</p>
+
+        <div id="tableContainer">
+            <!-- 데이터 표가 여기에 동적으로 생성됩니다. -->
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Round</th>
+                        <th>Ball 1</th>
+                        <th>Ball 2</th>
+                        <th>Ball 3</th>
+                        <th>Ball 4</th>
+                        <th>Ball 5</th>
+                        <th>PowerBall</th>
+                        <th>Sum</th>
+                        <th>Odd/Even</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터 행이 여기에 추가됩니다. -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="button-group">
+            <button id="loadMoreBtn" class="button-style button-primary">
+                다음 10개 가져오기
+            </button>
+        </div>
+
+        <p id="statusMessage" class="message"></p>
+    </div>
+
+    <script>
+        // 현재 로드된 데이터의 offset을 추적합니다.
+        let currentOffset = 0;
+        const limit = 10; // 한 번에 가져올 데이터 개수
+        const API_URL = 'https://bigstar4954.synology.me:443/getTop10Data'; // 백엔드 API URL
+
+        // DOM 요소 참조
+        const dataTableBody = document.querySelector('#dataTable tbody');
+        const loadMoreButton = document.getElementById('loadMoreBtn');
+        const statusMessageElement = document.getElementById('statusMessage');
+
+        /**
+         * API로부터 데이터를 가져와 표에 추가하는 함수
+         * @param {number} offset - 가져올 데이터의 시작 위치
+         * @param {number} limit - 한 번에 가져올 데이터 개수
+         */
+        async function fetchAndRenderData(offset, limit) {
+            statusMessageElement.textContent = '데이터를 로드 중입니다...';
+            statusMessageElement.classList.remove('error');
+
+            try {
+                const response = await fetch(`${API_URL}?offset=${offset}`);
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    if (result.data.length > 0) {
+                        renderTableRows(result.data);
+                        currentOffset += result.data.length; // offset 업데이트
+                        statusMessageElement.textContent = `데이터 로드 완료. 현재 ${currentOffset}개의 데이터가 표시됩니다.`;
+                        // 더 이상 데이터가 없으면 버튼 비활성화
+                        if (result.data.length < limit) {
+                            loadMoreButton.disabled = true;
+                            loadMoreButton.textContent = '더 이상 데이터가 없습니다.';
+                            statusMessageElement.textContent = `모든 데이터를 로드했습니다. (${currentOffset}개)`;
+                        }
+                    } else {
+                        // 가져올 데이터가 없을 때
+                        statusMessageElement.textContent = '더 이상 새로운 데이터가 없습니다.';
+                        loadMoreButton.disabled = true; // 버튼 비활성화
+                        loadMoreButton.textContent = '더 이상 데이터가 없습니다.';
+                    }
+                } else {
+                    // API 응답이 성공이 아니거나 success: false일 때
+                    throw new Error(result.message || '데이터 로드 실패');
+                }
+            } catch (error) {
+                console.error('데이터 로드 중 오류 발생:', error);
+                statusMessageElement.textContent = `데이터 로드 실패: ${error.message}`;
+                statusMessageElement.classList.add('error');
+                loadMoreButton.disabled = true; // 오류 발생 시 버튼 비활성화
+            }
+        }
+
+        /**
+         * 받은 데이터를 표의 행으로 렌더링하는 함수
+         * @param {Array} data - API로부터 받은 데이터 배열
+         */
+        function renderTableRows(data) {
+            data.forEach(item => {
+                const row = dataTableBody.insertRow(); // 새로운 행 생성
+                row.insertCell().textContent = item.Round;
+                row.insertCell().textContent = item.Ball_1;
+                row.insertCell().textContent = item.Ball_2;
+                row.insertCell().textContent = item.Ball_3;
+                row.insertCell().textContent = item.Ball_4;
+                row.insertCell().textContent = item.Ball_5;
+                row.insertCell().textContent = item['Ball_6(PowerBall)']; // 특수 문자 컬럼명 접근
+                row.insertCell().textContent = item.Sum;
+                row.insertCell().textContent = item.Odd;
+            });
+        }
+
+        // '다음 10개 가져오기' 버튼 클릭 이벤트 리스너
+        loadMoreButton.addEventListener('click', () => {
+            fetchAndRenderData(currentOffset, limit);
+        });
+
+        // 페이지 로드 시 초기 데이터 가져오기
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAndRenderData(currentOffset, limit);
+        });
+
+    </script>
+</body>
+</html>
