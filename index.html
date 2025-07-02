@@ -121,6 +121,15 @@
                 font-size: 0.85rem;
             }
         }
+          /* 새로 추가된 행을 위한 하이라이트 효과 */
+    .new-row {
+        background-color: #ffffe0 !important; /* 기존 스타일을 덮어쓰기 위해 !important 사용 */
+        transition: background-color 1.5s ease-out; /* 배경색이 서서히 사라지는 효과 */
+    }
+    .error {
+        color: red;
+        font-weight: bold;
+    }
     </style>
 </head>
 <body>
@@ -158,8 +167,136 @@
         <p id="statusMessage" class="message"></p>
     </div>
 
-    <script>
-       function _0x13f6(){const _0x555126=['insertRow','Emqrb','Round','Odd','2btGTjs','데이터를\x20로드\x20중입','getElement','없습니다.','statusMess','더\x20이상\x20데이터가\x20','length','message','giuLG','stener','classList','forEach','3445kKmoaI','했습니다.\x20(','데이터\x20로드\x20실패:','Ball_1','erBall)','https://bi','synology.m','Ball_3','Ball_4','e:443/getT','648GdWnzQ','더\x20이상\x20새로운\x20데','#dataTable','27237FEaIsl','remove','632157sxtHTj','loadMoreBt','disabled','데이터\x20로드\x20중\x20오','데이터\x20로드\x20실패','DOMContent','Ball_6(Pow','1218RahIrw','Loaded','insertCell','json','querySelec','44775aogvMh','467097tILbwX','891624ZgRKhJ','ById','textConten','이터가\x20없습니다.','20JKrZHB','750xWgjtK','Sum','?offset=','age','Ball_5','Ball_2','니다...','데이터\x20로드\x20완료.','tor','\x20현재\x20','click','gstar4954.','error','모든\x20데이터를\x20로드','76252bMbfDE','류\x20발생:','data','HMdTG','addEventLi'];_0x13f6=function(){return _0x555126;};return _0x13f6();}const _0x3d0577=_0x19b0;(function(_0x42b722,_0x542d26){const _0x2d3e35=_0x19b0,_0x16dc1e=_0x42b722();while(!![]){try{const _0x24d03b=parseInt(_0x2d3e35(0x1af))/0x1*(parseInt(_0x2d3e35(0x194))/0x2)+parseInt(_0x2d3e35(0x1bc))/0x3*(parseInt(_0x2d3e35(0x17c))/0x4)+-parseInt(_0x2d3e35(0x1a0))/0x5*(-parseInt(_0x2d3e35(0x1b6))/0x6)+-parseInt(_0x2d3e35(0x1ad))/0x7+-parseInt(_0x2d3e35(0x1aa))/0x8*(parseInt(_0x2d3e35(0x1bb))/0x9)+-parseInt(_0x2d3e35(0x17d))/0xa*(parseInt(_0x2d3e35(0x18b))/0xb)+-parseInt(_0x2d3e35(0x1bd))/0xc;if(_0x24d03b===_0x542d26)break;else _0x16dc1e['push'](_0x16dc1e['shift']());}catch(_0x3bf26c){_0x16dc1e['push'](_0x16dc1e['shift']());}}}(_0x13f6,0x8624b));let currentOffset=0x0;const limit=0xa,API_URL=_0x3d0577(0x1a5)+_0x3d0577(0x188)+_0x3d0577(0x1a6)+_0x3d0577(0x1a9)+'op10Data',dataTableBody=document[_0x3d0577(0x1ba)+_0x3d0577(0x185)](_0x3d0577(0x1ac)+'\x20tbody'),loadMoreButton=document[_0x3d0577(0x196)+_0x3d0577(0x1be)](_0x3d0577(0x1b0)+'n'),statusMessageElement=document[_0x3d0577(0x196)+'ById'](_0x3d0577(0x198)+_0x3d0577(0x180));async function fetchAndRenderData(_0x325585,_0x43719d){const _0x5a8f76=_0x3d0577;statusMessageElement[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x195)+_0x5a8f76(0x183),statusMessageElement[_0x5a8f76(0x19e)][_0x5a8f76(0x1ae)]('error');try{const _0x2abc2d=await fetch(API_URL+_0x5a8f76(0x17f)+_0x325585),_0x56b932=await _0x2abc2d[_0x5a8f76(0x1b9)]();if(_0x2abc2d['ok']&&_0x56b932['success'])_0x5a8f76(0x191)!==_0x5a8f76(0x18e)?_0x56b932[_0x5a8f76(0x18d)]['length']>0x0?(renderTableRows(_0x56b932[_0x5a8f76(0x18d)]),currentOffset+=_0x56b932[_0x5a8f76(0x18d)][_0x5a8f76(0x19a)],statusMessageElement[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x184)+_0x5a8f76(0x186)+currentOffset+('개의\x20데이터가\x20표시'+'됩니다.'),_0x56b932[_0x5a8f76(0x18d)]['length']<_0x43719d&&(loadMoreButton[_0x5a8f76(0x1b1)]=!![],loadMoreButton['textConten'+'t']=_0x5a8f76(0x199)+_0x5a8f76(0x197),statusMessageElement[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x18a)+_0x5a8f76(0x1a1)+currentOffset+'개)')):(statusMessageElement[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x1ab)+_0x5a8f76(0x17b),loadMoreButton[_0x5a8f76(0x1b1)]=!![],loadMoreButton[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x199)+_0x5a8f76(0x197)):_0x69915c[_0x5a8f76(0x19f)](_0x1f8e5e=>{const _0x5bf096=_0x5a8f76,_0x1870f3=_0x5aba5f[_0x5bf096(0x190)]();_0x1870f3[_0x5bf096(0x1b8)]()['textConten'+'t']=_0x1f8e5e[_0x5bf096(0x192)],_0x1870f3[_0x5bf096(0x1b8)]()['textConten'+'t']=_0x1f8e5e[_0x5bf096(0x1a3)],_0x1870f3[_0x5bf096(0x1b8)]()['textConten'+'t']=_0x1f8e5e['Ball_2'],_0x1870f3[_0x5bf096(0x1b8)]()[_0x5bf096(0x1bf)+'t']=_0x1f8e5e[_0x5bf096(0x1a7)],_0x1870f3['insertCell']()[_0x5bf096(0x1bf)+'t']=_0x1f8e5e[_0x5bf096(0x1a8)],_0x1870f3['insertCell']()[_0x5bf096(0x1bf)+'t']=_0x1f8e5e['Ball_5'],_0x1870f3['insertCell']()[_0x5bf096(0x1bf)+'t']=_0x1f8e5e[_0x5bf096(0x1b5)+_0x5bf096(0x1a4)],_0x1870f3[_0x5bf096(0x1b8)]()[_0x5bf096(0x1bf)+'t']=_0x1f8e5e[_0x5bf096(0x17e)],_0x1870f3[_0x5bf096(0x1b8)]()['textConten'+'t']=_0x1f8e5e[_0x5bf096(0x193)];});else throw new Error(_0x56b932[_0x5a8f76(0x19b)]||_0x5a8f76(0x1b3));}catch(_0x4b846e){'giuLG'===_0x5a8f76(0x19c)?(console[_0x5a8f76(0x189)](_0x5a8f76(0x1b2)+_0x5a8f76(0x18c),_0x4b846e),statusMessageElement[_0x5a8f76(0x1bf)+'t']=_0x5a8f76(0x1a2)+'\x20'+_0x4b846e[_0x5a8f76(0x19b)],statusMessageElement['classList']['add'](_0x5a8f76(0x189)),loadMoreButton[_0x5a8f76(0x1b1)]=!![]):_0x24b999(_0x20f181,_0x5d39ba);}}function _0x19b0(_0x539706,_0x5a8529){const _0x13f651=_0x13f6();return _0x19b0=function(_0x19b062,_0x2e7a75){_0x19b062=_0x19b062-0x17b;let _0xa2d64b=_0x13f651[_0x19b062];return _0xa2d64b;},_0x19b0(_0x539706,_0x5a8529);}function renderTableRows(_0x46d7e2){const _0x357e5a=_0x3d0577;_0x46d7e2[_0x357e5a(0x19f)](_0x1996f4=>{const _0xc9ad3b=_0x357e5a,_0x5201b3=dataTableBody[_0xc9ad3b(0x190)]();_0x5201b3[_0xc9ad3b(0x1b8)]()['textConten'+'t']=_0x1996f4[_0xc9ad3b(0x192)],_0x5201b3[_0xc9ad3b(0x1b8)]()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4[_0xc9ad3b(0x1a3)],_0x5201b3[_0xc9ad3b(0x1b8)]()['textConten'+'t']=_0x1996f4[_0xc9ad3b(0x182)],_0x5201b3[_0xc9ad3b(0x1b8)]()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4['Ball_3'],_0x5201b3[_0xc9ad3b(0x1b8)]()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4['Ball_4'],_0x5201b3[_0xc9ad3b(0x1b8)]()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4[_0xc9ad3b(0x181)],_0x5201b3[_0xc9ad3b(0x1b8)]()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4[_0xc9ad3b(0x1b5)+'erBall)'],_0x5201b3[_0xc9ad3b(0x1b8)]()['textConten'+'t']=_0x1996f4[_0xc9ad3b(0x17e)],_0x5201b3['insertCell']()[_0xc9ad3b(0x1bf)+'t']=_0x1996f4['Odd'];});}loadMoreButton[_0x3d0577(0x18f)+_0x3d0577(0x19d)](_0x3d0577(0x187),()=>{fetchAndRenderData(currentOffset,limit);}),document['addEventLi'+'stener'](_0x3d0577(0x1b4)+_0x3d0577(0x1b7),()=>{fetchAndRenderData(currentOffset,limit);});
-    </script>
+    // ----------------------------------------------------
+    // 1. 설정 및 전역 변수
+    // ----------------------------------------------------
+    let currentOffset = 0;
+    const limit = 10;
+    const API_URL = 'https://bigstar4954.synology.me:443/getTop10Data';
+    const SSE_URL = 'https://bigstar4954.synology.me:443/stream'; // SSE 엔드포인트 URL
+
+    // DOM 요소 참조
+    const dataTableBody = document.querySelector('#dataTable tbody');
+    const loadMoreButton = document.getElementById('loadMoreBtn');
+    const statusMessageElement = document.getElementById('statusMessage');
+
+    // ----------------------------------------------------
+    // 2. 핵심 함수들
+    // ----------------------------------------------------
+
+    /**
+     * 단일 데이터 객체를 받아 테이블 행(TR) 요소를 생성하는 함수 (코드 재사용을 위해 분리)
+     * @param {object} item - 데이터 한 행 객체
+     * @returns {HTMLTableRowElement} - 생성된 <tr> 요소
+     */
+    function createRowElement(item) {
+        const row = document.createElement('tr');
+        row.insertCell().textContent = item.Round;
+        row.insertCell().textContent = item.Ball_1;
+        row.insertCell().textContent = item.Ball_2;
+        row.insertCell().textContent = item.Ball_3;
+        row.insertCell().textContent = item.Ball_4;
+        row.insertCell().textContent = item.Ball_5;
+        row.insertCell().textContent = item['Ball_6(PowerBall)']; // 특수 문자 컬럼명 접근
+        row.insertCell().textContent = item.Sum;
+        row.insertCell().textContent = item.Odd;
+        return row;
+    }
+
+    /**
+     * API로부터 데이터를 가져와 표에 '더보기'로 추가하는 함수 (기존 로직 유지)
+     * @param {number} offset - 가져올 데이터의 시작 위치
+     */
+    async function fetchAndRenderData(offset) {
+        statusMessageElement.textContent = '데이터를 로드 중입니다...';
+        statusMessageElement.classList.remove('error');
+        try {
+            const response = await fetch(`${API_URL}?offset=${offset}`);
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                if (result.data.length > 0) {
+                    // renderTableRows 대신 createRowElement를 직접 사용
+                    result.data.forEach(item => {
+                        const row = createRowElement(item);
+                        dataTableBody.appendChild(row); // appendChild로 테이블 하단에 추가
+                    });
+                    currentOffset += result.data.length;
+                    statusMessageElement.textContent = `데이터 로드 완료. 현재 ${currentOffset}개의 데이터가 표시됩니다.`;
+
+                    if (result.data.length < limit) {
+                        loadMoreButton.disabled = true;
+                        loadMoreButton.textContent = '더 이상 데이터가 없습니다.';
+                    }
+                } else {
+                    statusMessageElement.textContent = '더 이상 새로운 데이터가 없습니다.';
+                    loadMoreButton.disabled = true;
+                    loadMoreButton.textContent = '더 이상 데이터가 없습니다.';
+                }
+            } else {
+                throw new Error(result.message || '데이터 로드 실패');
+            }
+        } catch (error) {
+            console.error('데이터 로드 중 오류 발생:', error);
+            statusMessageElement.textContent = `데이터 로드 실패: ${error.message}`;
+            statusMessageElement.classList.add('error');
+        }
+    }
+
+    // ----------------------------------------------------
+    // 3. 이벤트 리스너 및 초기화
+    // ----------------------------------------------------
+
+    // '다음 10개 가져오기' 버튼 클릭 이벤트
+    loadMoreButton.addEventListener('click', () => {
+        fetchAndRenderData(currentOffset);
+    });
+
+    // 페이지가 완전히 로드되면 실행
+    document.addEventListener('DOMContentLoaded', () => {
+        // (1) 초기 데이터 10개 로드
+        fetchAndRenderData(currentOffset);
+
+        // (2) SSE 연결 설정
+        const sse = new EventSource(SSE_URL);
+
+        // (3) SSE 서버로부터 메시지(새 데이터) 수신 시 실행
+        sse.onmessage = (event) => {
+            try {
+                const newRowData = JSON.parse(event.data);
+                console.log('SSE Received:', newRowData);
+
+                const newRow = createRowElement(newRowData);
+
+                // 시각적 효과를 위해 클래스 추가
+                newRow.classList.add('new-row');
+
+                // 새로운 행을 테이블의 '맨 위'에 추가
+                dataTableBody.prepend(newRow);
+
+                // 오프셋과 총 카운트 업데이트 (중요)
+                currentOffset++;
+                statusMessageElement.textContent = `실시간 업데이트: [${newRowData.Round}] 회차 데이터가 추가되었습니다.`;
+                statusMessageElement.classList.remove('error');
+
+                // 잠시 후 하이라이트 효과 제거
+                setTimeout(() => {
+                    newRow.classList.remove('new-row');
+                }, 2000);
+
+            } catch (e) {
+                console.error('SSE 데이터 처리 중 오류:', e);
+            }
+        };
+
+        // (4) SSE 연결 오류 발생 시 실행
+        sse.onerror = (error) => {
+            console.error('SSE 연결 오류:', error);
+            statusMessageElement.textContent = '실시간 업데이트 연결에 오류가 발생했습니다.';
+            statusMessageElement.classList.add('error');
+            sse.close(); // 오류 발생 시 연결 종료
+        };
+    });
+</script>
 </body>
 </html>
