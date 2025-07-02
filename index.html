@@ -292,10 +292,17 @@
 
         // (4) SSE 연결 오류 발생 시 실행
         sse.onerror = (error) => {
-            console.error('SSE 연결 오류:', error);
-            statusMessageElement.textContent = '실시간 업데이트 연결에 오류가 발생했습니다.';
-            statusMessageElement.classList.add('error');
-            sse.close(); // 오류 발생 시 연결 종료
+    // readyState가 CONNECTING(0)이면 브라우저가 이미 재연결을 시도 중이라는 의미입니다.
+    if (sse.readyState === EventSource.CONNECTING) {
+        console.log('실시간 서버와 재연결을 시도하고 있습니다...');
+        statusMessageElement.textContent = '실시간 서버와 재연결을 시도하고 있습니다...';
+        statusMessageElement.classList.remove('error'); // 에러 색상 제거
+    } else {
+        console.error('SSE 연결에 복구 불가능한 오류가 발생했습니다:', error);
+        statusMessageElement.textContent = '실시간 업데이트 연결에 문제가 발생했습니다.';
+        statusMessageElement.classList.add('error');
+    }
+         //   sse.close(); // 오류 발생 시 연결 종료
         };
     });
 </script>
