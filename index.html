@@ -255,7 +255,7 @@
 
     // '다음 10개 가져오기' 버튼 클릭 이벤트
     loadMoreButton.addEventListener('click', () => {
-        fetchAndRenderData(1);
+        fetchAndRenderData(currentOffset);
     });
 
     // 페이지가 완전히 로드되면 실행
