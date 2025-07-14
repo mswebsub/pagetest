@@ -255,13 +255,13 @@
 
     // '다음 10개 가져오기' 버튼 클릭 이벤트
     loadMoreButton.addEventListener('click', () => {
-        fetchAndRenderData(10);
+        fetchAndRenderData(1);
     });
 
     // 페이지가 완전히 로드되면 실행
     document.addEventListener('DOMContentLoaded', () => {
         // (1) 초기 데이터 10개 로드
-        fetchAndRenderData(currentOffset);
+        fetchAndRenderData(10);
 
         // (2) SSE 연결 설정
         const sse = new EventSource(SSE_URL);
