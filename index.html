@@ -209,10 +209,15 @@
      * @param {number} offset - 가져올 데이터의 시작 위치
      */
     async function fetchAndRenderData(offset) {
+        if (!myClientId) {
+            statusMessageElement.textContent = '서버와 연결 중입니다. 잠시 후 다시 시도해주세요.';
+            statusMessageElement.classList.add('error');
+            return;
+        }
         statusMessageElement.textContent = '데이터를 로드 중입니다...';
         statusMessageElement.classList.remove('error');
         try {
-            const response = await fetch(`${API_URL}?offset=${offset}`);
+            const response = await fetch(`${API_URL}?offset=${offset}&clientId=${myClientId}`);
             const result = await response.json();
 
             if (response.ok && result.success) {
@@ -250,7 +255,7 @@
 
     // '다음 10개 가져오기' 버튼 클릭 이벤트
     loadMoreButton.addEventListener('click', () => {
-        fetchAndRenderData(currentOffset);
+        fetchAndRenderData(10);
     });
 
     // 페이지가 완전히 로드되면 실행
@@ -260,7 +265,20 @@
 
         // (2) SSE 연결 설정
         const sse = new EventSource(SSE_URL);
-
+        sse.addEventListener('connected', (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.clientId) {
+                    myClientId = data.clientId;
+                    console.log(`[SSE] Client ID 수신 성공: ${myClientId}`);
+                    statusMessageElement.textContent = '실시간 서버에 연결되었습니다.';
+                    // clientId를 받은 후에 초기 데이터 로드
+                    fetchAndRenderData(currentOffset);
+                }
+            } catch (e) {
+                console.error('clientId 처리 중 오류:', e);
+            }
+        });
         // (3) SSE 서버로부터 메시지(새 데이터) 수신 시 실행
         sse.onmessage = (event) => {
             try {
